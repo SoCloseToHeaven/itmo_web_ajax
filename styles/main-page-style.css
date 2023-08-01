@@ -1,0 +1,26 @@
+* {
+    background-color: #2b1c43;
+    color: white;
+}
+
+.personal-info {
+    text-align: center;
+    font-size: larger;
+    font-family: monospace;
+}
+
+h1.personal-info {
+    font-size: large;
+    font-weight: 800;
+}
+
+.choose-params-block {
+    width: 33%;
+}
+
+.choose-param-elem {
+    background-color: #56237d;
+    color: white;
+    font-size: medium;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
