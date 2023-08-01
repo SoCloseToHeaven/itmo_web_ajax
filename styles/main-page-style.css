@@ -27,10 +27,18 @@ h2.laboratory-info {
 .params-and-map-block {
     float: left;
     width: 25%;
-    margin-bottom: 20px;
+    margin-bottom: 5%;
     font-size: medium;
     font-weight: 400;
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    align-items: center;
+    text-align: center;
+}
+
+.param-label {
+    display: block;
+    margin-bottom: 3%;
+    margin-top: 3%;
 }
 
 .choose-param-elem {
@@ -40,6 +48,17 @@ h2.laboratory-info {
     color: white;
     font-size: medium;
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    position: relative;
+    margin: 1%;
+}
+
+button.choose-param-elem {
+    width: 15%;
+}
+
+select.choose-param-elem, text.choose-param-elem {
+    text-align: center;
+    width: 50%;
 }
 
 #results-table {
@@ -49,6 +68,6 @@ h2.laboratory-info {
 }
 
 #map-img {
-    border: 1px solid pink;
+    border: 3px solid black;
     border-radius: 10px;
 }
