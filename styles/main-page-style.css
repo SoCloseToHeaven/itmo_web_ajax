@@ -9,18 +9,46 @@
     font-family: monospace;
 }
 
-h1.personal-info {
+.laboratory-info {
+    text-align: center;
+    font-family: monospace;
+}
+
+h1.laboratory-info {
     font-size: large;
     font-weight: 800;
 }
 
-.choose-params-block {
-    width: 33%;
+h2.laboratory-info {
+    font-size: medium;
+    font-weight: 700;
+}
+
+.params-and-map-block {
+    float: left;
+    width: 25%;
+    margin-bottom: 20px;
+    font-size: medium;
+    font-weight: 400;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 }
 
 .choose-param-elem {
     background-color: #56237d;
+    border: 1px solid pink;
+    border-radius: 10px;
     color: white;
     font-size: medium;
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+#results-table {
+    border: 1px solid black;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+#map-img {
+    border: 1px solid pink;
+    border-radius: 10px;
 }

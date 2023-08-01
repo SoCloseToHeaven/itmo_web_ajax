@@ -3,28 +3,32 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Asynchronous Requests</title>
     <link rel="stylesheet" href="./styles/main-page-style.css" />
 </head>
 <body>
     <header class="personal-info">
-        <div>
-            Author: Lianguzov Dmitrii
-        </div>
-        <div>
+        <section class="personal-info"></section>
+            Author: Lianguzov Dmitry
+            <br />
             Group: P3132
-        </div>
-        <h1>
-            Laboratory Work №1
-        </h1>
+        </section>
+        <section class="laboratory-info">
+            <h1>
+                Laboratory Work №1
+            </h1>
+            <h2>
+                Asynchronous Requests
+            </h2>
+        </section>
     </header>
     <main>
         <!--
-            Choose params section
+            Params and map section
         -->
         <section>
             <form method="get">
-                <div class="choose-params-block">
+                <div class="params-and-map-block">
                     <label for="x">
                         Select X value
                     </label>
@@ -40,13 +44,13 @@
                         <option value="3">3</option>
                     </select>
                 </div>
-                <div class="choose-params-block">
+                <div class="params-and-map-block">
                     <label for="y">
                         Type Y value
                     </label>
                     <input type="text" name="y" id="y" class="choose-param-elem" />
                 </div>
-                <div class="choose-params-block">
+                <div class="params-and-map-block">
                     <label for="R">
                         Choose R value
                     </label>
@@ -57,26 +61,28 @@
                     <button name="R" class="choose-param-elem" value="5">5</button>
                     
                 </div>
+
+                <div class="params-and-map-block">
+                    <img src="./static/areas.png" id="map-img"/>
+                </div>
             </form>
-        </section>
-
-        <!--
-            Map section
-        -->
-        <section> 
-            <div>
-
-            </div>
         </section>
 
         <!--
             Table Section
         -->
 
-        <section>
-            <div>
-
-            </div>
+        <section >
+            <table id="results-table">
+                <thead>
+                    <th>X value</th>
+                    <th>Y value</th>
+                    <th>R value</th>
+                    <th><span style="color: green;">HIT</span> or <span style="color: brown;">MISS</span></th>
+                    <th>Current time</th>
+                    <th>Execution time</th>
+                </thead>
+            </table>
         </section>
     </main>
     
