@@ -1,5 +1,5 @@
 # Лабораторная работа №1
-## Вариант: 3218
+## Вариант: 123
 
 ![Task graph](/static/areas-with-bounds.png)
 
