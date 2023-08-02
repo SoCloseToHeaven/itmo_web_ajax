@@ -56,7 +56,7 @@ button.choose-param-elem {
     width: 15%;
 }
 
-select.choose-param-elem, text.choose-param-elem {
+select.choose-param-elem, input[type="text"].choose-param-elem {
     text-align: center;
     width: 50%;
 }
