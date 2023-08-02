@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Asynchronous Requests</title>
     <link rel="stylesheet" href="./styles/main-page-style.css" />
+    <script src="./src/validation.js">
+    </script>
 </head>
 <body>
     <header class="personal-info">
@@ -29,7 +31,7 @@
             Params and map section
         -->
         <section>
-            <form method="get">
+            <form method="get" onsubmit="validateForm(event)">
                 <div class="params-and-map-block">
                     <label for="x" class="param-label">
                         Select X value
