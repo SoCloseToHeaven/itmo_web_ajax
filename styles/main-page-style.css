@@ -14,13 +14,13 @@
     font-family: monospace;
 }
 
-h1.laboratory-info {
-    font-size: large;
+.laboratory-info h1 {
+    font-size: 32px;
     font-weight: 800;
 }
 
-h2.laboratory-info {
-    font-size: medium;
+.laboratory-info h2 {
+    font-size: 24px;
     font-weight: 700;
 }
 
