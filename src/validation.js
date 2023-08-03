@@ -24,7 +24,7 @@ function validateX() {
     }
 
     if (x < X_LOWER_BOUND || x > X_UPPER_BOUND) {
-        alert(ALERT_MSG);
+        alert(ALERT_MSG_X);
         return false;
     }
 
@@ -40,7 +40,7 @@ function validateY() {
     }
 
     if (y <= Y_LOWER_BOUND || y >= Y_UPPER_BOUND) {
-        alert(ALERT_MSG)
+        alert(ALERT_MSG_Y)
         return false;
     }
     return true;
