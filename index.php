@@ -31,7 +31,7 @@
             Params and map section
         -->
         <section>
-            <form method="get" onsubmit="validateForm(event)">
+            <form method="get"  onsubmit="validateForm(event)">
                 <div class="params-and-map-block">
                     <label for="x" class="param-label">
                         Select X value
