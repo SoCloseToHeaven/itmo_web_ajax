@@ -6,6 +6,7 @@
     <title>Asynchronous Requests</title>
     <link rel="stylesheet" href="./styles/main-page-style.css" />
     <script src="./src/validation.js"></script>
+    <script defer src="./src/components/graphCanvas.js"></script>
 </head>
 <body>
     <header>
@@ -66,7 +67,12 @@
                 </div>
 
                 <div class="params-and-map-block">
-                    <img src="./static/areas.png" id="map-img"/>
+                    <canvas id="graph" width="300" height="300">
+                        <label for="map-img">
+                            Canvas is not supported in your browser!
+                        </label>
+                        <img src="./static/areas.png" id="map-img" width="300" height="300" />
+                    </canvas>
                 </div>
             </form>
         </section>
