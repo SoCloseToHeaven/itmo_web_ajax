@@ -1,11 +1,14 @@
-const canvas = document.getElementById("graph");
-const ctx = canvas.getContext("2d");
-const width = canvas.width;
-const height = canvas.height;
 const labels = ["-R", "-R/2", "0", "R/2", "R"];
 const FIGURE_COLOR = "#9f40de";
 
-function drawGraph() {
+function drawGraph(canvas) {
+    function drawPoint(point) {
+        // todo later
+    }
+    const ctx = canvas.getContext("2d");
+    const width = canvas.width;
+    const height = canvas.height;
+    
     ctx.font = "13px sans-serif";
     ctx.fillStyle = "white";
     ctx.fillRect(0, 0, width, height);
@@ -76,6 +79,4 @@ function drawGraph() {
 }
 
 
-
-
-drawGraph();
+export default graph;
