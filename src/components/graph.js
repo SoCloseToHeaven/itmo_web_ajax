@@ -1,13 +1,38 @@
 const labels = ["-R", "-R/2", "0", "R/2", "R"];
 const FIGURE_COLOR = "#9f40de";
+const CANVAS_NOT_SUPPORTED = {
+    imgPath: './static/areas.png',
+    message: 'Canvas is not supported in your browser!',
+    imgID: 'map-img'
+};
+const width = 300;
+const height = 300;
+const CANVAS_ID = 'canvas';
+const POINTER_COLOR = "#bf6dd1";
+const POINT_RADIUS = 3;
 
-function drawGraph(canvas) {
-    function drawPoint(point) {
-        // todo later
-    }
+function drawGraph() {
+    const canvasContainer = document.createElement('div');
+    const canvas = document.createElement('canvas');
+    const img = document.createElement('img');
+    const imgLabel = document.createElement('label');
+
+    img.src = CANVAS_NOT_SUPPORTED.imgPath;
+    img.id = CANVAS_NOT_SUPPORTED.imgID;
+    img.width = width;
+    img.height = height;
+
+    imgLabel.textContent = CANVAS_NOT_SUPPORTED.message;
+    imgLabel.htmlFor = CANVAS_NOT_SUPPORTED.imgID;
+
+    canvas.width = width;
+    canvas.height = height;
+    canvas.id = CANVAS_ID;
+
+    canvas.append(imgLabel);
+    canvas.append(img);
+
     const ctx = canvas.getContext("2d");
-    const width = canvas.width;
-    const height = canvas.height;
     
     ctx.font = "13px sans-serif";
     ctx.fillStyle = "white";
@@ -76,7 +101,41 @@ function drawGraph(canvas) {
     ctx.lineTo(width / 2, 0);
     ctx.stroke();
 
+
+    // pointer
+    const pointerCanvas = document.createElement('canvas');
+    const pointerCtx = pointerCanvas.getContext("2d");
+    
+
+    canvas.addEventListener('mousemove', (event) => {
+        const rect = canvas.getBoundingClientRect();
+        const x = event.clientX - rect.left;
+        const y = event.clientY - rect.top;
+
+        pointerCtx.clearRect(0, 0, width, height);
+        pointerCtx.beginPath();
+        pointerCtx.fillStyle = POINTER_COLOR;
+        pointerCtx.arc(x, y, POINT_RADIUS, 0, 2 * Math.PI);
+        pointerCtx.fill();
+    })
+
+    canvas.addEventListener('mouseleave', (event) => {
+        pointerCtx.clearRect(0, 0, width, height);
+    })
+
+    pointerCanvas.width = canvas.width;
+    pointerCanvas.height = canvas.height;
+
+    canvasContainer.append(canvas);
+    canvasContainer.append(pointerCanvas);
+
+    return {
+        HTMLcanvas: canvasContainer,
+        drawPoint: function() {
+            // TODO: later
+        }
+    };
 }
 
 
-module.exports = drawGraph;
+export default drawGraph;

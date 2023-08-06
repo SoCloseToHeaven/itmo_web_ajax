@@ -1,20 +1,14 @@
+import drawGraph from "./graph.js";
+
 const FORM_BLOCK_CLASS = 'params-and-map-block';
-const MAP_WIDTH = 300;
-const MAP_HEIGHT = 300;
 const PARAM_LABEL_CLASS = 'param-label';
 const CHOOSE_PARAM_ELEMENT_CLASS = 'choose-param-elem';
-const CANVAS_NOT_SUPPORTED = {
-    imgPath: './static/areas.png',
-    message: 'Canvas is not supported in your browser!',
-    imgID: 'map-img'
-};
 const X_NAME = 'x';
 const Y_NAME = 'y';
 const R_NAME = 'r';
-const drawGraph = require("./graph.js");
 
 
-function createForm() {
+function createForm(sendPoint) {
     // semantic section
     const section = document.createElement('section');
 
@@ -81,29 +75,25 @@ function createForm() {
     labelY.textContent = 'Type Y value';
     labelR.textContent = 'Choose R value';
 
-    blockX.append(labelX);
-    blockY.append(labelY);
-    blockR.append(labelR);
+    blockX.prepend(labelX);
+    blockY.prepend(labelY);
+    blockR.prepend(labelR);
 
     // canvas
-    const mapCanvas = document.createElement('canvas');
-    const imgInsteadMap = document.createElement('img');
-    const imgInsteadMapLabel = document.createElement('label');
-    
-    imgInsteadMap.src = CANVAS_NOT_SUPPORTED.imgPath;
-    imgInsteadMap.id = CANVAS_NOT_SUPPORTED.imgID;
-    imgInsteadMapLabel.htmlFor = CANVAS_NOT_SUPPORTED.imgID;
 
-    imgInsteadMap.width = MAP_WIDTH;
-    imgInsteadMap.height = MAP_HEIGHT;
-    mapCanvas.width = MAP_WIDTH;
-    mapCanvas.height = MAP_HEIGHT;
 
-    drawGraph(mapCanvas);
+    const graphCanvas = drawGraph();
 
-    mapCanvas.append(imgInsteadMap);
-    mapCanvas.append(imgInsteadMapLabel);
-    blockMap.append(mapCanvas);
+    blockMap.append(graphCanvas.HTMLcanvas);
+
+    // add sendPoint func
+
+    form.addEventListener('submit', (event) => {
+        event.preventDefault();
+    });
 
     return section;
 }
+
+
+export default createForm;
