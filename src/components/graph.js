@@ -79,4 +79,4 @@ function drawGraph(canvas) {
 }
 
 
-export default graph;
+module.exports = drawGraph;

@@ -1,5 +1,3 @@
-import * as graph from "./graph.js";
-
 const FORM_BLOCK_CLASS = 'params-and-map-block';
 const MAP_WIDTH = 300;
 const MAP_HEIGHT = 300;
@@ -13,6 +11,7 @@ const CANVAS_NOT_SUPPORTED = {
 const X_NAME = 'x';
 const Y_NAME = 'y';
 const R_NAME = 'r';
+const drawGraph = require("./graph.js");
 
 
 function createForm() {
@@ -100,7 +99,7 @@ function createForm() {
     mapCanvas.width = MAP_WIDTH;
     mapCanvas.height = MAP_HEIGHT;
 
-    graph.drawGraph(mapCanvas);
+    drawGraph(mapCanvas);
 
     mapCanvas.append(imgInsteadMap);
     mapCanvas.append(imgInsteadMapLabel);
@@ -108,5 +107,3 @@ function createForm() {
 
     return section;
 }
-
-export default form;
