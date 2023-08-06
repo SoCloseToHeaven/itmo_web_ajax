@@ -13,6 +13,7 @@ const POINT_RADIUS = 3;
 
 function drawGraph() {
     const canvasContainer = document.createElement('div');
+
     const canvas = document.createElement('canvas');
     const img = document.createElement('img');
     const imgLabel = document.createElement('label');
@@ -101,36 +102,33 @@ function drawGraph() {
     ctx.lineTo(width / 2, 0);
     ctx.stroke();
 
+    // draw points
+
 
     // pointer
-    const pointerCanvas = document.createElement('canvas');
-    const pointerCtx = pointerCanvas.getContext("2d");
+    const bufferCanvas = document.createElement('canvas');
+    const bufferCtx = bufferCanvas.getContext('2d');
+    bufferCtx.drawImage(canvas, 0, 0);
+
+    bufferCanvas.width = width;
+    bufferCanvas.height = height;
     
 
     canvas.addEventListener('mousemove', (event) => {
         const rect = canvas.getBoundingClientRect();
         const x = event.clientX - rect.left;
         const y = event.clientY - rect.top;
+        
+        canvas.drawImage(bufferCanvas, 0, 0);
 
-        pointerCtx.clearRect(0, 0, width, height);
-        pointerCtx.beginPath();
-        pointerCtx.fillStyle = POINTER_COLOR;
-        pointerCtx.arc(x, y, POINT_RADIUS, 0, 2 * Math.PI);
-        pointerCtx.fill();
+        ctx.beginPath();
+        ctx.fillStyle = POINTER_COLOR;
+        ctx.arc(x, y, POINT_RADIUS, 0, 2 * Math.PI);
+        ctx.fill();
     })
-
-    canvas.addEventListener('mouseleave', (event) => {
-        pointerCtx.clearRect(0, 0, width, height);
-    })
-
-    pointerCanvas.width = canvas.width;
-    pointerCanvas.height = canvas.height;
-
-    canvasContainer.append(canvas);
-    canvasContainer.append(pointerCanvas);
 
     return {
-        HTMLcanvas: canvasContainer,
+        HTMLcanvas: canvas,
         drawPoint: function() {
             // TODO: later
         }
