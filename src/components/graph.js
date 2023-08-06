@@ -108,10 +108,11 @@ function drawGraph() {
     // pointer
     const bufferCanvas = document.createElement('canvas');
     const bufferCtx = bufferCanvas.getContext('2d');
-    bufferCtx.drawImage(canvas, 0, 0);
-
     bufferCanvas.width = width;
     bufferCanvas.height = height;
+
+    
+    bufferCtx.drawImage(canvas, 0, 0);
     
 
     canvas.addEventListener('mousemove', (event) => {
@@ -119,7 +120,7 @@ function drawGraph() {
         const x = event.clientX - rect.left;
         const y = event.clientY - rect.top;
         
-        canvas.drawImage(bufferCanvas, 0, 0);
+        ctx.drawImage(bufferCanvas, 0, 0);
 
         ctx.beginPath();
         ctx.fillStyle = POINTER_COLOR;
