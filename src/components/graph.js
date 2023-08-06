@@ -126,6 +126,10 @@ function drawGraph() {
         ctx.fillStyle = POINTER_COLOR;
         ctx.arc(x, y, POINT_RADIUS, 0, 2 * Math.PI);
         ctx.fill();
+    });
+
+    canvas.addEventListener('mouseleave', (event) => {
+        ctx.drawImage(bufferCanvas, 0, 0);
     })
 
     return {
