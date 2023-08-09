@@ -6,7 +6,11 @@ const CHOOSE_PARAM_ELEMENT_CLASS = 'choose-param-elem';
 const X_NAME = 'x';
 const Y_NAME = 'y';
 const R_NAME = 'r';
-
+const buttonRValue = {
+    currentValueLabel: document.createElement('label'),
+    currentValue: 1,
+    text: 'Current R value: '
+};
 
 function createForm(sendPoint) {
     // semantic section
@@ -16,6 +20,7 @@ function createForm(sendPoint) {
     const form = document.createElement('form');
     
     section.append(form);
+
 
     // create divs
     const blockX = document.createElement('div');
@@ -49,13 +54,23 @@ function createForm(sendPoint) {
 
     blockY.append(textY);
     // buttons
+
+
+    buttonRValue.currentValueLabel.classList.add(PARAM_LABEL_CLASS);
+    buttonRValue.currentValueLabel.htmlFor = R_NAME;
+    buttonRValue.currentValueLabel.textContent = `Current R value: ${buttonRValue.currentValue}`;
     
     for (let i = 1; i <= 5; i++) {
         const button = document.createElement('button');
+        button.type = 'button';
         button.classList.add(CHOOSE_PARAM_ELEMENT_CLASS);
         button.value = i;
         button.textContent = i;
         button.name = R_NAME;
+        button.addEventListener(
+            'click', 
+            (event) => buttonRValue.currentValueLabel.textContent = buttonRValue.text + button.value
+        );
         blockR.append(button);
     }
 
@@ -73,11 +88,12 @@ function createForm(sendPoint) {
 
     labelX.textContent = 'Select X value';
     labelY.textContent = 'Type Y value';
-    labelR.textContent = 'Choose R value';
+    labelR.textContent = `Choose R value`;
 
     blockX.prepend(labelX);
     blockY.prepend(labelY);
     blockR.prepend(labelR);
+    blockR.append(buttonRValue.currentValueLabel);
 
     // canvas
 
