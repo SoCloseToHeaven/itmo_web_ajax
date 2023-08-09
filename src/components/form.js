@@ -18,6 +18,8 @@ function createForm(sendPoint) {
 
     // form
     const form = document.createElement('form');
+
+    form.style = 'display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; grid-template-columns: 1fr 1fr'
     
     section.append(form);
 
@@ -27,11 +29,28 @@ function createForm(sendPoint) {
     const blockY = document.createElement('div');
     const blockR = document.createElement('div');
     const blockMap = document.createElement('div');
+    const blockSubmitClear = document.createElement('div');
 
-    [blockX, blockY, blockR, blockMap].forEach((block) => {
+
+    [blockX, blockY, blockR, blockMap, blockSubmitClear].forEach((block) => {
         block.classList.add(FORM_BLOCK_CLASS);
         form.append(block);
     });
+
+    blockSubmitClear.style += 'grid-column: span 4';
+    // Send/Clear
+
+    const sendButton = document.createElement('button');
+    const clearButton = document.createElement('button');
+
+    sendButton.textContent = 'Send';
+    clearButton.textContent = 'Clear';
+
+    [sendButton, clearButton].forEach((button) => {
+        button.classList.add(CHOOSE_PARAM_ELEMENT_CLASS);
+        blockSubmitClear.append(button);
+    })
+
 
     // select
     const selectX = document.createElement('select');
