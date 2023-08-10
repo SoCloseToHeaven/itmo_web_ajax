@@ -19,7 +19,7 @@ function createForm(sendPoint) {
     // form
     const form = document.createElement('form');
 
-    form.style = 'display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; grid-template-columns: 1fr 1fr'
+    form.style = 'display: grid; grid-template-columns: repeat(4, 25%); grid-template-rows: 1fr 1fr; grid-auto-flow: row dense';
     
     section.append(form);
 
@@ -31,17 +31,23 @@ function createForm(sendPoint) {
     const blockMap = document.createElement('div');
     const blockSubmitClear = document.createElement('div');
 
+    blockMap.style = 'grid-row: span 2';
+
 
     [blockX, blockY, blockR, blockMap, blockSubmitClear].forEach((block) => {
         block.classList.add(FORM_BLOCK_CLASS);
         form.append(block);
     });
 
-    blockSubmitClear.style += 'grid-column: span 4';
+    blockSubmitClear.style = 'grid-column: span 3';
     // Send/Clear
 
     const sendButton = document.createElement('button');
     const clearButton = document.createElement('button');
+
+    sendButton.type = 'submit';
+    clearButton.type = 'button';
+
 
     sendButton.textContent = 'Send';
     clearButton.textContent = 'Clear';
