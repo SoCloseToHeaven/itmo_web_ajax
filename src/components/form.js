@@ -11,6 +11,7 @@ const buttonRValue = {
     currentValue: 1,
     text: 'Current R value: '
 };
+const FORM_ID = 'graph-form';
 
 function createForm(sendPoint) {
     // semantic section
@@ -19,7 +20,7 @@ function createForm(sendPoint) {
     // form
     const form = document.createElement('form');
 
-    form.style = 'display: grid; grid-template-columns: repeat(4, 25%); grid-template-rows: 1fr 1fr; grid-auto-flow: row dense';
+    form.id = FORM_ID;
     
     section.append(form);
 

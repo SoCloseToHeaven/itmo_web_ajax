@@ -72,3 +72,9 @@ select.choose-param-elem, input[type="text"].choose-param-elem {
 }
 
 
+#graph-form {
+    display: grid; 
+    grid-template-columns: repeat(4, 25%); 
+    grid-template-rows: 1fr 1fr; 
+    grid-auto-flow: row dense
+}
