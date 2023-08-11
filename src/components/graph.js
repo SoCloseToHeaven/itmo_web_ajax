@@ -9,7 +9,7 @@ const width = 300;
 const height = 300;
 const CANVAS_ID = 'canvas';
 const POINTER_COLOR = "#bf6dd1";
-const POINT_RADIUS = 3;
+const POINT_RADIUS = 4;
 
 function drawGraph() {
 
@@ -115,6 +115,7 @@ function drawGraph() {
     
 
     canvas.addEventListener('mousemove', (event) => {
+        ctx.save();
         const rect = canvas.getBoundingClientRect();
         const x = event.clientX - rect.left;
         const y = event.clientY - rect.top;
@@ -125,6 +126,7 @@ function drawGraph() {
         ctx.fillStyle = POINTER_COLOR;
         ctx.arc(x, y, POINT_RADIUS, 0, 2 * Math.PI);
         ctx.fill();
+        ctx.restore();
     });
 
     canvas.addEventListener('mouseleave', (event) => {
