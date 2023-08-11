@@ -12,7 +12,6 @@ const POINTER_COLOR = "#bf6dd1";
 const POINT_RADIUS = 3;
 
 function drawGraph() {
-    const canvasContainer = document.createElement('div');
 
     const canvas = document.createElement('canvas');
     const img = document.createElement('img');
@@ -134,8 +133,16 @@ function drawGraph() {
 
     return {
         HTMLcanvas: canvas,
-        drawPoint: function() {
-            // TODO: later
+        drawPoint: function(point) {
+            const x = point.x;
+            const y = point.y;
+            const color = point.color;
+
+            bufferCtx.save();
+            bufferCtx.fillStyle = color;
+            bufferCtx.arc(width / 2 + x, height / 2 + y, POINT_RADIUS, 0, 2 * Math.PI);
+            bufferCtx.fill();
+            bufferCtx.restore();
         }
     };
 }

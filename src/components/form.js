@@ -95,7 +95,10 @@ function createForm(sendPoint) {
         button.name = R_NAME;
         button.addEventListener(
             'click', 
-            (event) => buttonRValue.currentValueLabel.textContent = buttonRValue.text + button.value
+            (event) => {
+                buttonRValue.currentValue = button.value;
+                buttonRValue.currentValueLabel.textContent = buttonRValue.text + button.value;
+            }
         );
         blockR.append(button);
     }
@@ -129,10 +132,20 @@ function createForm(sendPoint) {
     blockMap.append(graphCanvas.HTMLcanvas);
 
     // add sendPoint func
-
-    form.addEventListener('submit', (event) => {
+    form.onsubmit = async (event) => {
         event.preventDefault();
-    });
+
+        const pointAttempt = {
+            x: selectX.options[selectX.selectedIndex].value,
+            y: textY.value,
+            r: buttonRValue.currentValue
+        };
+
+
+        const point = await sendPoint(pointAttempt);
+        console.log(point);
+        graphCanvas.drawPoint(point);
+    };
 
     return section;
 }
