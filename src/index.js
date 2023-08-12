@@ -45,10 +45,9 @@ const LOCAL_STORAGE_KEY = 'app-points';
         event.preventDefault();
 
         const pointAttempt = paramsGraphSection.getPointAttempt();
-        const url = new URL("/api/point-handle.php", window.location.origin);
+        const url = new URL("api/point-handle.php", window.location.href);
         url.search = new URLSearchParams(pointAttempt).toString();
     
-        
         const response = await fetch(url).then(resp => {
             if (resp.ok) {
                 return resp.json();
