@@ -8,7 +8,7 @@ const CANVAS_NOT_SUPPORTED = {
 const width = 300;
 const height = 300;
 const CANVAS_ID = 'canvas';
-const POINTER_COLOR = "#bf6dd1";
+const POINTER_COLOR = "#0f4213";
 const POINT_RADIUS = 4;
 
 function drawGraph(pointsArray, currentR) {
@@ -144,6 +144,34 @@ function drawGraph(pointsArray, currentR) {
     }
 
     graphObject.fillCanvas();
+
+
+    canvas.addEventListener('mousemove', (event) => {
+
+        const rect = canvas.getBoundingClientRect();
+        const x = event.clientX - rect.left;
+        const y = event.clientY - rect.top;
+
+        graphObject.fillCanvas();
+
+        graphObject.ctx.save();
+
+        graphObject.ctx.beginPath();
+        graphObject.ctx.fillStyle = POINTER_COLOR;
+        graphObject.ctx.moveTo(x, y);
+        graphObject.ctx.arc(x, y, POINT_RADIUS, 0, 2 * Math.PI);
+        graphObject.ctx.fill();
+
+        graphObject.ctx.restore();
+    });
+
+    canvas.addEventListener('mouseleave', (event) => {
+        graphObject.ctx.save();
+
+        graphObject.fillCanvas();
+
+        graphObject.ctx.restore();
+    });
 
     return graphObject;
 }
