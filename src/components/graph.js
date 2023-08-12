@@ -90,8 +90,8 @@ function drawGraph(pointsArray, currentR) {
 
             if (Array.isArray(this.array) && !Number.isNaN(this.rValue)) {
                 this.array.forEach(point => {
+                    this.ctx.beginPath();
                     this.ctx.fillStyle = point.color;
-
                     const xStep = point.x * (width / 3) / this.rValue;
                     const yStep = -(point.y * (height / 3) / this.rValue);
                     const positionX = width / 2 + xStep;
