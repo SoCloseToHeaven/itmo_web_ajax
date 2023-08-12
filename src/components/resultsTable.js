@@ -1,8 +1,8 @@
 const TABLE_ID = "results-table";
-const TABLE_HEADERS = ['X value', 'Y value', 'R value', 'HIT/MISS', 'Current time', 'Execution time'];
+const TABLE_HEADERS = ['X value', 'Y value', 'R value', 'HIT/MISS', 'Current time', 'Execution time(seconds)', 'Color(RGB)'];
 
 
-function createTable() {
+function createTable(array) {
     const section = document.createElement('section');
 
     const table = document.createElement('table');
@@ -18,7 +18,7 @@ function createTable() {
     table.append(thead);
     section.append(table);
 
-    return {
+    const tableObject = {
         HTMLsection: section,
         HTMLtable: table,
         addPoint: function(point) {
@@ -27,12 +27,17 @@ function createTable() {
             for (const value of Object.values(point)) {
                 const td = document.createElement('td');
                 td.textContent = value;
-                tr.append(value);
+                tr.append(td);
             }
 
             this.HTMLtable.append(tr);
         }
     };
+
+    if (array instanceof Array) {
+        array.forEach(point => tableObject.addPoint(point));
+    }
+    return tableObject;
 }
 
 export default createTable;

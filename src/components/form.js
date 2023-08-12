@@ -13,7 +13,7 @@ const buttonRValue = {
 };
 const FORM_ID = 'graph-form';
 
-function createForm(sendPoint) {
+function createForm(pointsArray) {
     // semantic section
     const section = document.createElement('section');
 
@@ -127,27 +127,24 @@ function createForm(sendPoint) {
     // canvas
 
 
-    const graphCanvas = drawGraph();
+    const graphCanvas = drawGraph(pointsArray, buttonRValue.currentValue);
 
     blockMap.append(graphCanvas.HTMLcanvas);
 
-    // add sendPoint func
-    form.onsubmit = async (event) => {
-        event.preventDefault();
-
-        const pointAttempt = {
-            x: selectX.options[selectX.selectedIndex].value,
-            y: textY.value,
-            r: buttonRValue.currentValue
-        };
-
-
-        const point = await sendPoint(pointAttempt);
-        console.log(point);
-        graphCanvas.drawPoint(point);
+    const formObject = {
+        HTMLsection: section,
+        form: form,
+        graph: graphCanvas,
+        getPointAttempt: function() {
+            return {
+                x: selectX.options[selectX.selectedIndex].value,
+                y: textY.value,
+                r: buttonRValue.currentValue
+            };
+        }
     };
 
-    return section;
+    return formObject;
 }
 
 

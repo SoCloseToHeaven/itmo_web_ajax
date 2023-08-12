@@ -64,6 +64,7 @@ select.choose-param-elem, input[type="text"].choose-param-elem {
     border: 1px solid black;
     border-collapse: collapse;
     width: 100%;
+    text-align: center;
 }
 
 #map-img {
