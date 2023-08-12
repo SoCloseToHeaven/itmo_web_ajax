@@ -91,7 +91,9 @@ function drawGraph(pointsArray, currentR) {
             if (Array.isArray(this.array) && !Number.isNaN(this.rValue)) {
                 this.array.forEach(point => {
                     this.ctx.beginPath();
+                    
                     this.ctx.fillStyle = point.color;
+
                     const xStep = point.x * (width / 3) / this.rValue;
                     const yStep = -(point.y * (height / 3) / this.rValue);
                     const positionX = width / 2 + xStep;
@@ -117,6 +119,25 @@ function drawGraph(pointsArray, currentR) {
                 this.array = array;
                 this.fillCanvas();
             }
+        },
+
+        getMousePosition: function (event) {
+            const rect = this.HTMLcanvas.getBoundingClientRect();
+            const x = event.clientX - rect.left;
+            const y = event.clientY - rect.top;
+            return [x, y];
+        },
+
+        getPointAttempt: function (event) {
+            const [absX, absY] = this.getMousePosition(event);
+            
+            const pointAttempt = {
+                x: (absX - width / 2) / (width / 3) * this.rValue,
+                y: -(absY - height / 2) / (height / 3) * this.rValue,
+                r: this.rValue
+            };
+
+            return pointAttempt;
         }
     };
 
@@ -148,9 +169,7 @@ function drawGraph(pointsArray, currentR) {
 
     canvas.addEventListener('mousemove', (event) => {
 
-        const rect = canvas.getBoundingClientRect();
-        const x = event.clientX - rect.left;
-        const y = event.clientY - rect.top;
+        const [x, y] = graphObject.getMousePosition(event);
 
         graphObject.fillCanvas();
 

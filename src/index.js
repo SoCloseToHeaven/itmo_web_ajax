@@ -28,6 +28,25 @@ const LOCAL_STORAGE_KEY = 'app-points';
     appContainer.append(paramsGraphSection.HTMLsection);
     appContainer.append(tableSection.HTMLsection);
 
+    const sendPoint = async function (pointAttempt) {
+        const url = new URL("api/point-handle.php", window.location.href);
+        url.search = new URLSearchParams(pointAttempt).toString();
+    
+        const response = await fetch(url).then(resp => {
+            if (resp.ok) {
+                return resp.json();
+            }
+            throw new Error(resp.statusText);
+        }).catch(err => console.log(err));
+
+        if (response !== undefined) {
+            POINTS_ARRAY.push(response);
+            tableSection.addPoint(response);
+            paramsGraphSection.graph.fillCanvas();
+            window.localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(POINTS_ARRAY)); // local storage saving
+        }
+    };
+
 
     paramsGraphSection.clearButton.onclick = (event) => {
         event.preventDefault();
@@ -45,21 +64,14 @@ const LOCAL_STORAGE_KEY = 'app-points';
         event.preventDefault();
 
         const pointAttempt = paramsGraphSection.getPointAttempt();
-        const url = new URL("api/point-handle.php", window.location.href);
-        url.search = new URLSearchParams(pointAttempt).toString();
-    
-        const response = await fetch(url).then(resp => {
-            if (resp.ok) {
-                return resp.json();
-            }
-            throw new Error(resp.statusText);
-        }).catch(err => console.log(err));
-
-        if (response !== undefined) {
-            POINTS_ARRAY.push(response);
-            tableSection.addPoint(response);
-            paramsGraphSection.graph.fillCanvas();
-            window.localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(POINTS_ARRAY)); // local storage saving
-        }
+        await sendPoint(pointAttempt);
     }
+
+    paramsGraphSection.graph.HTMLcanvas.onclick = async (event) => {
+        event.preventDefault();
+
+        const pointAttempt = paramsGraphSection.graph.getPointAttempt(event);
+
+        await sendPoint(pointAttempt);
+    };
 })();
