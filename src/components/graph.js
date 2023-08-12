@@ -90,9 +90,10 @@ function drawGraph(pointsArray, currentR) {
     
             if (this.array instanceof Array && this.rValue instanceof Number) {
                 this.array.forEach(point => {
+                    console.log(point);
                     this.ctx.fillStyle = point.color;
                     const xStep = point.x * (width / 3) / this.rValue;
-                    const yStep = point.y * (height / 3) / this.rValue;
+                    const yStep = -(point.y * (height / 3) / this.rValue);
                     this.ctx.arc(width / 2 + xStep, height / 2 + yStep, POINT_RADIUS, 0, 2 * Math.PI);
                     this.ctx.fill();
                 });

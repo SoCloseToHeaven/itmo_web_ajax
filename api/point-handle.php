@@ -22,7 +22,7 @@
             'y' => $y,
             'r' => $r,
             'success' => $hit,
-            'startTime' => time(),
+            'currentTime' => time(),
             'executionTime' => $executionTime/1e+9,
             'color' => 'rgb(' . rand(0, 255) . ',' . rand(0, 255) . ',' . rand(0, 255) . ')'
         );
