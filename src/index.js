@@ -9,6 +9,7 @@ const LOCAL_STORAGE_KEY = 'app-points';
 
 // IIFE
 (() => {
+    // restore data from local storage
     let storageArray = window.localStorage.getItem(LOCAL_STORAGE_KEY);
     if (storageArray !== null) {
         storageArray = JSON.parse(storageArray);
@@ -17,6 +18,8 @@ const LOCAL_STORAGE_KEY = 'app-points';
     if (storageArray instanceof Array) {
         storageArray.forEach(point => POINTS_ARRAY.push(point));
     }
+
+    // fill app
     const appContainer = document.getElementById(APP_CONTAINER_ID);
 
     const paramsGraphSection = createForm(POINTS_ARRAY);
@@ -25,6 +28,19 @@ const LOCAL_STORAGE_KEY = 'app-points';
     appContainer.append(paramsGraphSection.HTMLsection);
     appContainer.append(tableSection.HTMLsection);
 
+
+    paramsGraphSection.clearButton.onclick = (event) => {
+        event.preventDefault();
+
+        if (confirm('Are you sure?')) {
+            POINTS_ARRAY.splice(0, POINTS_ARRAY.length);
+
+            paramsGraphSection.graph.fillCanvas();
+            tableSection.clear();
+
+            window.localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(POINTS_ARRAY)); 
+        }
+    }
     paramsGraphSection.form.onsubmit = async (event) => {
         event.preventDefault();
 
@@ -44,7 +60,7 @@ const LOCAL_STORAGE_KEY = 'app-points';
             POINTS_ARRAY.push(response);
             tableSection.addPoint(response);
             paramsGraphSection.graph.fillCanvas();
-            window.localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(POINTS_ARRAY));
+            window.localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(POINTS_ARRAY)); // local storage saving
         }
     }
 })();

@@ -87,14 +87,18 @@ function drawGraph(pointsArray, currentR) {
             this.ctx.lineTo(width / 2 - 5, 5);
             this.ctx.lineTo(width / 2, 0);
             this.ctx.stroke();
-    
-            if (this.array instanceof Array && this.rValue instanceof Number) {
+
+            if (Array.isArray(this.array) && !Number.isNaN(this.rValue)) {
                 this.array.forEach(point => {
-                    console.log(point);
                     this.ctx.fillStyle = point.color;
+
                     const xStep = point.x * (width / 3) / this.rValue;
                     const yStep = -(point.y * (height / 3) / this.rValue);
-                    this.ctx.arc(width / 2 + xStep, height / 2 + yStep, POINT_RADIUS, 0, 2 * Math.PI);
+                    const positionX = width / 2 + xStep;
+                    const positionY = height / 2 + yStep;
+
+                    this.ctx.moveTo(positionX, positionY);
+                    this.ctx.arc(positionX, positionY, POINT_RADIUS, 0, 2 * Math.PI);
                     this.ctx.fill();
                 });
             }
@@ -102,22 +106,17 @@ function drawGraph(pointsArray, currentR) {
             this.ctx.restore();
         },
         setR: function(currentR) {
-            if (currentR instanceof Number) {
+            if (!Number.isNaN(currentR)) {
                 this.rValue = currentR;
                 this.fillCanvas();
             }
         },
 
         setArray: function(array) {
-            if (array instanceof Array) {
+            if (Array.isArray(array)) {
                 this.array = array;
                 this.fillCanvas();
             }
-        },
-
-        clear: function() {
-            this.array = [];
-            this.fillCanvas();
         }
     };
 
@@ -145,40 +144,6 @@ function drawGraph(pointsArray, currentR) {
     }
 
     graphObject.fillCanvas();
-
-    //graphObject.fillCanvas(pointsArray, currentR);
-    //const ctx = canvas.getContext("2d");
-    //()(pointsArray, currentR);
-    // draw points
-
-    // pointer
-    // const bufferCanvas = document.createElement('canvas');
-    // const bufferCtx = bufferCanvas.getContext('2d');
-    // bufferCanvas.width = width;
-    // bufferCanvas.height = height;
-
-    
-    // bufferCtx.drawImage(canvas, 0, 0);
-    
-
-    // canvas.addEventListener('mousemove', (event) => {
-    //     ctx.save();
-    //     const rect = canvas.getBoundingClientRect();
-    //     const x = event.clientX - rect.left;
-    //     const y = event.clientY - rect.top;
-        
-    //     ctx.drawImage(bufferCanvas, 0, 0);
-
-    //     ctx.beginPath();
-    //     ctx.fillStyle = POINTER_COLOR;
-    //     ctx.arc(x, y, POINT_RADIUS, 0, 2 * Math.PI);
-    //     ctx.fill();
-    //     ctx.restore();
-    // });
-
-    // canvas.addEventListener('mouseleave', (event) => {
-    //     ctx.drawImage(bufferCanvas, 0, 0);
-    // });
 
     return graphObject;
 }

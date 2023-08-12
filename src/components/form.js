@@ -41,6 +41,12 @@ function createForm(pointsArray) {
     });
 
     blockSubmitClear.style = 'grid-column: span 3';
+
+    //canvas
+    const graphCanvas = drawGraph(pointsArray, buttonRValue.currentValue);
+
+    blockMap.append(graphCanvas.HTMLcanvas);
+
     // Send/Clear
 
     const sendButton = document.createElement('button');
@@ -98,6 +104,7 @@ function createForm(pointsArray) {
             (event) => {
                 buttonRValue.currentValue = button.value;
                 buttonRValue.currentValueLabel.textContent = buttonRValue.text + button.value;
+                graphCanvas.setR(buttonRValue.currentValue);
             }
         );
         blockR.append(button);
@@ -124,17 +131,11 @@ function createForm(pointsArray) {
     blockR.prepend(labelR);
     blockR.append(buttonRValue.currentValueLabel);
 
-    // canvas
-
-
-    const graphCanvas = drawGraph(pointsArray, buttonRValue.currentValue);
-
-    blockMap.append(graphCanvas.HTMLcanvas);
-
     const formObject = {
         HTMLsection: section,
         form: form,
         graph: graphCanvas,
+        clearButton: clearButton,
         getPointAttempt: function() {
             return {
                 x: selectX.options[selectX.selectedIndex].value,

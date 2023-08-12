@@ -31,10 +31,17 @@ function createTable(array) {
             }
 
             this.HTMLtable.append(tr);
+        },
+
+        clear: function() {
+            const rows = this.HTMLtable.getElementsByTagName('tr');
+            while (rows.length > 0) {
+                this.HTMLtable.removeChild(rows[0]);
+            }
         }
     };
 
-    if (array instanceof Array) {
+    if (Array.isArray(array)) {
         array.forEach(point => tableObject.addPoint(point));
     }
     return tableObject;
