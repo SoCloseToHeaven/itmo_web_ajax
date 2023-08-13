@@ -13,6 +13,10 @@ const buttonRValue = {
 };
 const FORM_ID = 'graph-form';
 
+const FLOAT_PATTERN = /^[+-]?\d+(\.\d+)?$/;
+const Y_MAX_VALUE = 5;
+const Y_MIN_VALUE = -5;
+
 function createForm(pointsArray) {
     // semantic section
     const section = document.createElement('section');
@@ -130,6 +134,22 @@ function createForm(pointsArray) {
     blockY.prepend(labelY);
     blockR.prepend(labelR);
     blockR.append(buttonRValue.currentValueLabel);
+
+
+    textY.addEventListener('input', event => {
+        const text = event.target.value;
+        
+        if (text === '' ||
+            !FLOAT_PATTERN.test(text) || 
+            parseFloat(text) < Y_MIN_VALUE || 
+            parseFloat(text) > Y_MAX_VALUE
+            ) {
+            sendButton.disabled = true;
+        } else {
+            sendButton.disabled = false;
+        }
+
+    });
 
     const formObject = {
         HTMLsection: section,
