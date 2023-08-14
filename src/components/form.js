@@ -133,6 +133,7 @@ function createForm(pointsArray) {
     labelR.textContent = `Choose R value`;
 
     labelYWarning.style = 'color: red';
+    labelYWarning.textContent = `Y value must be a float number between: ${Y_MIN_VALUE} and ${Y_MAX_VALUE} (inclusive)`;
 
     blockX.prepend(labelX);
     blockY.prepend(labelY);
