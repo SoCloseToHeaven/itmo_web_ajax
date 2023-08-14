@@ -51,6 +51,11 @@
     margin: 1%;
 }
 
+.choose-param-elem:active {
+    background-color: #32134a;
+    border: 1px solid pink;
+}
+
 button.choose-param-elem {
     width: 15%;
 }
