@@ -118,20 +118,25 @@ function createForm(pointsArray) {
     // labels
     const labelX = document.createElement('label');
     const labelY = document.createElement('label');
+    const labelYWarning = document.createElement('label');
     const labelR = document.createElement('label');
 
     labelX.htmlFor = X_NAME;
     labelY.htmlFor = Y_NAME;
+    labelYWarning.htmlFor = Y_NAME;
     labelR.htmlFor = R_NAME;
 
-    [labelX, labelY, labelR].forEach((label) => label.classList.add(PARAM_LABEL_CLASS));
+    [labelX, labelY, labelYWarning, labelR].forEach((label) => label.classList.add(PARAM_LABEL_CLASS));
 
     labelX.textContent = 'Select X value';
     labelY.textContent = 'Type Y value';
     labelR.textContent = `Choose R value`;
 
+    labelYWarning.style = 'color: red';
+
     blockX.prepend(labelX);
     blockY.prepend(labelY);
+    blockY.append(labelYWarning);
     blockR.prepend(labelR);
     blockR.append(buttonRValue.currentValueLabel);
 
@@ -143,10 +148,12 @@ function createForm(pointsArray) {
             !FLOAT_PATTERN.test(text) || 
             parseFloat(text) < Y_MIN_VALUE || 
             parseFloat(text) > Y_MAX_VALUE
-            ) {
+        ) {
             sendButton.disabled = true;
+            labelYWarning.textContent = `Y value must be a float number between: ${Y_MIN_VALUE} and ${Y_MAX_VALUE} (inclusive)`;
         } else {
             sendButton.disabled = false;
+            labelYWarning.textContent = '';
         }
 
     });
