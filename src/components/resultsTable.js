@@ -44,7 +44,7 @@ function createTable(array) {
             executionTimeTd.textContent = point.executionTime;
 
             colorTd.textContent = point.color;
-            colorTd.style = `color: ${point.color}};`;
+            colorTd.style = `color: ${point.color};`;
 
             [xTd, yTd, rTd, successTd, currentTimeTd, executionTimeTd, colorTd].forEach(elem => tr.append(elem));
             this.HTMLtable.append(tr);
