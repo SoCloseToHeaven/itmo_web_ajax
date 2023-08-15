@@ -24,12 +24,29 @@ function createTable(array) {
         addPoint: function(point) {
             const tr = document.createElement('tr');
 
-            for (const value of Object.values(point)) {
-                const td = document.createElement('td');
-                td.textContent = value;
-                tr.append(td);
-            }
+            const xTd = document.createElement('td');
+            const yTd = document.createElement('td');
+            const rTd = document.createElement('td');
+            const successTd = document.createElement('td');
+            const currentTimeTd = document.createElement('td');
+            const executionTimeTd = document.createElement('td');
+            const colorTd = document.createElement('td');
 
+            xTd.textContent = point.x;
+            yTd.textContent = point.y;
+            rTd.textContent = point.r;
+
+            successTd.textContent = point.success;
+            successTd.style = (point.success) ? 'color: green;' : 'color: red';
+
+            currentTimeTd.textContent = new Date(point.currentTime * 1000);
+
+            executionTimeTd.textContent = point.executionTime;
+
+            colorTd.textContent = point.color;
+            colorTd.style = `color: ${point.color}};`;
+
+            [xTd, yTd, rTd, successTd, currentTimeTd, executionTimeTd, colorTd].forEach(elem => tr.append(elem));
             this.HTMLtable.append(tr);
         },
 
