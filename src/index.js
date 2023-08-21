@@ -1,3 +1,6 @@
+import '../styles/main-page-style.css';
+import '../index.html';
+
 import createForm from "./components/form.js";
 import createTable from "./components/resultsTable.js";
 
