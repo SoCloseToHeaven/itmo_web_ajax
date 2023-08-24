@@ -102,6 +102,7 @@ export const Graph : React.FC<GraphProps> = ({points, r, sendPoint} : GraphProps
 
     const canvasRef = useRef<HTMLCanvasElement>(null);
     const ctx = canvasRef.current?.getContext("2d");
+    const rect = canvasRef.current?.getBoundingClientRect();
 
     const fillGraphCtx = () => {
         if (ctx) {
@@ -122,7 +123,6 @@ export const Graph : React.FC<GraphProps> = ({points, r, sendPoint} : GraphProps
             ref={canvasRef}
             onMouseLeave={(e) => fillGraphCtx()}
             onMouseMove={(event) => {
-                const rect = canvasRef.current?.getBoundingClientRect();
                 if (!rect || !ctx)
                     return;
                 fillGraphCtx();
@@ -138,6 +138,21 @@ export const Graph : React.FC<GraphProps> = ({points, r, sendPoint} : GraphProps
                 ctx.fill();
 
                 ctx.restore();
+            }}
+            onClick={(event) => {
+                if (!rect) {
+                    return;
+                }
+                const mouseX = event.clientX - rect.left;
+                const mouseY = event.clientY - rect.top;
+
+                const pointAttempt : Point = {
+                    x: (mouseX - width / 2) / (width / 3) * r,
+                    y: -(mouseY - height / 2) / (height / 3) * r,
+                    r: r
+                }
+
+                sendPoint(pointAttempt);
             }}
         >
             Canvas is not supported in your browser!
