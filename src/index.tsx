@@ -19,22 +19,23 @@ function App() {
 
     const [points, setPoints] = useState<ProcessedPoint[]>([]);
 
-    const sendPoint = async (point : Point) => {
+    const sendPoint = (point : Point) => {
         const url = new URL("api/point-handle.php", window.location.href);
-        url.search = new URLSearchParams(point.toString()).toString(); // refactor
+        const params : string = `x=${point.x}&y=${point.y}&r=${point.r}`;
+        url.search = new URLSearchParams(params).toString();
     
-        const response = await fetch(url).then(resp => {
+        fetch(url).then(resp => {
             if (resp.ok) {
                 return resp.json();
             }
             throw new Error(resp.statusText);
-        }).catch(err => console.log(err));
+        }).then((response) => {
 
-        if (response !== undefined) {
-            const resultPoint : ProcessedPoint = response as ProcessedPoint;
-            setPoints([...points, resultPoint]);
-            window.localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(points));
-        }
+            if (response !== undefined) {
+                const resultPoint : ProcessedPoint = response as ProcessedPoint;
+                setPoints([...points, resultPoint]);
+                window.localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(points));
+        }}).catch(err => console.log(err));
     };
 
     const clearPoints = () => {
@@ -51,7 +52,7 @@ function App() {
             return;
         }
         window.localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify([] as ProcessedPoint[]));
-    });
+    }, []);
 
     return (
         <div>
@@ -73,8 +74,6 @@ const appContainer = document.getElementById('app-container');
 if (appContainer) {
     const root = createRoot(appContainer);
     root.render(
-        <StrictMode>
-            <App />
-        </StrictMode>
+        <App />
     );
 }
