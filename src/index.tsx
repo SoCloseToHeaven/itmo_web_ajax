@@ -1,4 +1,4 @@
-import React, { StrictMode, useState } from 'react';
+import React, { StrictMode, useEffect, useState } from 'react';
 import { createRoot } from 'react-dom/client';
 
 import { Graph } from './components/Graph';
@@ -21,7 +21,7 @@ function App() {
 
     const sendPoint = async (point : Point) => {
         const url = new URL("api/point-handle.php", window.location.href);
-        url.search = new URLSearchParams(point.toString()).toString();
+        url.search = new URLSearchParams(point.toString()).toString(); // refactor
     
         const response = await fetch(url).then(resp => {
             if (resp.ok) {
@@ -44,9 +44,19 @@ function App() {
         }
     };
 
+    useEffect(() => {
+        const pointsJSON = window.localStorage.getItem(LOCAL_STORAGE_KEY);
+        if (pointsJSON) {
+            setPoints(JSON.parse(pointsJSON) as ProcessedPoint[]);
+            return;
+        }
+        window.localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify([] as ProcessedPoint[]));
+    });
+
     return (
         <div>
             <div>
+                <Graph points={points} r={r} sendPoint={sendPoint}/>
                 <Form x={x} y={y} r={r} setX={setX} setY={setY} setR={setR} sendPoint={sendPoint} clearPoints={clearPoints} />
             </div>
             <div>
@@ -63,6 +73,8 @@ const appContainer = document.getElementById('app-container');
 if (appContainer) {
     const root = createRoot(appContainer);
     root.render(
+        <StrictMode>
             <App />
+        </StrictMode>
     );
 }

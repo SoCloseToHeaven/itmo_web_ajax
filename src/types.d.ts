@@ -10,3 +10,10 @@ declare interface ProcessedPoint extends Point {
     executionTime: number,
     color: string
 }
+
+
+declare module '*.png' {
+    const content: any
+    export default content;
+}
+

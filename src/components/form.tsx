@@ -60,14 +60,18 @@ export const Form : React.FC<FormProps> = ({x, y, r, setX, setY, setR, sendPoint
                     <label htmlFor='y'>{yWarningText}</label>
             </div>
             <div>
-                    {
-                        Constants.R_BUTTON_VALUES.map((value : number) => {
-                        return (
-                            <button name='r' value={value} type='button'>
-                                {value}
-                            </button>);
+                <label htmlFor='r'>
+                    Choose R value
+                </label>
+                {
+                    Constants.R_BUTTON_VALUES.map((value : number) => {
+                    return (
+                        <button name='r' value={value} type='button'>
+                            {value}
+                        </button>
+                        );
                     })
-                    }
+                }
             </div>
             <div>
                     <button type='submit'>Send</button>
