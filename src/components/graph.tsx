@@ -81,6 +81,21 @@ function fillGraph(ctx: CanvasRenderingContext2D, r: number, points: ProcessedPo
     ctx.lineTo(width / 2 - 5, 5);
     ctx.lineTo(width / 2, 0);
     ctx.stroke();
+
+    points.forEach((point) => {
+        ctx.beginPath();
+
+        ctx.fillStyle = point.color;
+
+        const xStep = point.x * (width / 3) / r;
+        const yStep = -(point.y * (height / 3) / r);
+        const positionX = width / 2 + xStep;
+        const positionY = height / 2 + yStep;
+
+        ctx.moveTo(positionX, positionY);
+        ctx.arc(positionX, positionY, POINT_RADIUS, 0, 2 * Math.PI);
+        ctx.fill();
+    });
 }
 
 export const Graph : React.FC<GraphProps> = ({points, r, sendPoint} : GraphProps) => {
@@ -106,8 +121,23 @@ export const Graph : React.FC<GraphProps> = ({points, r, sendPoint} : GraphProps
             id="canvas"
             ref={canvasRef}
             onMouseLeave={(e) => fillGraphCtx()}
-            onMouseMove={(e) => {
+            onMouseMove={(event) => {
+                const rect = canvasRef.current?.getBoundingClientRect();
+                if (!rect || !ctx)
+                    return;
+                fillGraphCtx();
+                
+                const mouseX = event.clientX - rect.left;
+                const mouseY = event.clientY - rect.top;
 
+                ctx.save();
+
+                ctx.beginPath();
+                ctx.fillStyle = POINTER_COLOR;
+                ctx.arc(mouseX, mouseY, POINT_RADIUS, 0, 2 * Math.PI);
+                ctx.fill();
+
+                ctx.restore();
             }}
         >
             Canvas is not supported in your browser!

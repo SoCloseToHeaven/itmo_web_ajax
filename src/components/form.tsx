@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 
 import * as Constants from '../constants';
 
@@ -17,11 +17,14 @@ export const Form : React.FC<FormProps> = ({x, y, r, setX, setY, setR, sendPoint
     const [yWarningText, setYWarningText] = useState<String>('');
     const [yText, setYText] = useState<string>('');
 
+    // const sendButtonRef = useRef<HTMLButtonElement>(null);
+
     useEffect(() => {
         if (yText === '' || parseFloat(yText) < Constants.Y_LOWER_BOUND || parseFloat(yText) > Constants.Y_UPPER_BOUND) {
             setYWarningText(
                 `Y value must be a float number between: ${Constants.Y_LOWER_BOUND} and ${Constants.Y_UPPER_BOUND} (inclusive)`
             );
+            
             return;
         }
         setYWarningText('');
@@ -66,7 +69,12 @@ export const Form : React.FC<FormProps> = ({x, y, r, setX, setY, setR, sendPoint
                 {
                     Constants.R_BUTTON_VALUES.map((value : number) => {
                     return (
-                        <button name='r' value={value} type='button'>
+                        <button 
+                        name='r' 
+                        value={value} 
+                        type='button' 
+                        onChange={(e) => setR(value)}
+                        >
                             {value}
                         </button>
                         );
