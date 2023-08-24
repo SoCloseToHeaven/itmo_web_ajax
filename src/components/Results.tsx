@@ -27,7 +27,7 @@ export const Results : React.FC<ResultsProps> = ({points} : ResultsProps) => {
                                 <td style={{ color: point.success ? 'green' : 'red' }}>{point.success ? 'HIT' : 'MISS'}</td>
                                 <td>{new Date(point.currentTime * 1000).toLocaleString()}</td>
                                 <td>{point.executionTime}</td>
-                                <td>{point.color}</td>
+                                <td style={{color: point.color}}>{point.color}</td>
                             </tr>
                         );
                     })
