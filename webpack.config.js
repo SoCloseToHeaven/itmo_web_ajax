@@ -39,7 +39,7 @@ module.exports = {
         new CopyPlugin({
             patterns: [
                 {from: 'api', to: 'api'},
-                {from: 'static', to: 'static'}
+                //{from: 'static', to: 'static'}
             ]
         })
     ],
