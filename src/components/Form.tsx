@@ -68,15 +68,15 @@ export const Form : React.FC<FormProps> = ({x, y, r, setX, setY, setR, sendPoint
                 </label>
                 {
                     Constants.R_BUTTON_VALUES.map((value : number) => {
-                    return (
-                        <button 
-                        name='r' 
-                        value={value} 
-                        type='button' 
-                        onChange={(e) => setR(value)}
-                        >
-                            {value}
-                        </button>
+                        return (
+                            <button
+                                name='r'
+                                value={value}
+                                type='button'
+                                onChange={(e) => setR(value)}
+                            >
+                                {value}
+                            </button>
                         );
                     })
                 }
