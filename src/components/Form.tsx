@@ -73,7 +73,7 @@ export const Form : React.FC<FormProps> = ({x, y, r, setX, setY, setR, sendPoint
                                 name='r'
                                 value={value}
                                 type='button'
-                                onChange={(e) => setR(value)}
+                                onClick={(e) => setR(value)}
                             >
                                 {value}
                             </button>
