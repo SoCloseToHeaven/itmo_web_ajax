@@ -81,7 +81,8 @@
     "build:dev": "webpack",
     "build:prod": "webpack --node-env=production",
     "clear": "rd /s /q dist",
-    "deploy": "./deploy.sh"
+    "deploy": "./deploy.sh",
+    "start:php" : "php -S localhost:3000"
   },
   "keywords": [],
   "author": "",

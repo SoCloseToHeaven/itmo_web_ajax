@@ -17,22 +17,32 @@ export const Form : React.FC<FormProps> = ({x, y, r, setX, setY, setR, sendPoint
     const [yWarningText, setYWarningText] = useState<String>('');
     const [yText, setYText] = useState<string>('');
 
-    // const sendButtonRef = useRef<HTMLButtonElement>(null);
+    const sendButtonRef = useRef<HTMLButtonElement>(null);
 
     useEffect(() => {
-        if (yText === '' || parseFloat(yText) < Constants.Y_LOWER_BOUND || parseFloat(yText) > Constants.Y_UPPER_BOUND) {
-            setYWarningText(
-                `Y value must be a float number between: ${Constants.Y_LOWER_BOUND} and ${Constants.Y_UPPER_BOUND} (inclusive)`
-            );
+        if (
+            Number.isNaN(parseFloat(yText)) || // TODO: add regular expression test
+            yText === '' || 
+            parseFloat(yText) < Constants.Y_LOWER_BOUND || 
+            parseFloat(yText) > Constants.Y_UPPER_BOUND) {
+
+                if (sendButtonRef.current)
+                    sendButtonRef.current.disabled = true;
+                setYWarningText(
+                    `Y value must be a float number between: ${Constants.Y_LOWER_BOUND} and ${Constants.Y_UPPER_BOUND} (inclusive)`
+                );
             
-            return;
+                return;
         }
+        if (sendButtonRef.current)
+            sendButtonRef.current.disabled = false;
         setYWarningText('');
         setY(parseFloat(yText));
+        
 
     }, [yText]);
 
-    // add styles
+    
     return (
         <form 
             action='/api/point-handle.php' 
@@ -44,7 +54,7 @@ export const Form : React.FC<FormProps> = ({x, y, r, setX, setY, setR, sendPoint
         >
             <div>
                 <label htmlFor='x'>Select X value</label>
-                <select value={x} onChange={(e) => setX(parseFloat(e.target.value))}>
+                <select className='x-y-width' value={x} onChange={(e) => setX(parseFloat(e.target.value))}>
                     {
                         Constants.X_SELECT_VALUES.map((value : number) => <option value={value}>{value}</option>)
                     }
@@ -53,6 +63,7 @@ export const Form : React.FC<FormProps> = ({x, y, r, setX, setY, setR, sendPoint
             <div>
                     <label htmlFor='y'>Type Y value</label>
                     <input 
+                        className='x-y-width'
                         type='text' 
                         name='y' 
                         placeholder='Y value'
@@ -60,7 +71,7 @@ export const Form : React.FC<FormProps> = ({x, y, r, setX, setY, setR, sendPoint
                         value={yText}
                         onChange={(e) => setYText(e.target.value)}
                     />
-                    <label htmlFor='y'>{yWarningText}</label>
+                    <label style={{color: 'red'}} htmlFor='y'>{yWarningText}</label>
             </div>
             <div>
                 <label htmlFor='r'>
@@ -68,22 +79,23 @@ export const Form : React.FC<FormProps> = ({x, y, r, setX, setY, setR, sendPoint
                 </label>
                 {
                     Constants.R_BUTTON_VALUES.map((value : number) => {
-                    return (
-                        <button 
-                        name='r' 
-                        value={value} 
-                        type='button' 
-                        onChange={(e) => setR(value)}
-                        >
-                            {value}
-                        </button>
+                        return (
+                            <button
+                                className='r-button-group'
+                                name='r'
+                                value={value}
+                                type='button'
+                                onClick={(e) => setR(value)}
+                            >
+                                {value}
+                            </button>
                         );
                     })
                 }
             </div>
             <div>
-                    <button type='submit'>Send</button>
-                    <button type='button' onClick={(e) => clearPoints()}>Clear</button>
+                    <button className='send-clear-button-group' type='submit' ref={sendButtonRef}>Send</button>
+                    <button className='send-clear-button-group' type='button' onClick={(e) => clearPoints()}>Clear</button>
             </div>
         </form>
     );

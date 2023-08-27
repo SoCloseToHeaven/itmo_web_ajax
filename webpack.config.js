@@ -16,7 +16,13 @@ module.exports = {
     target,
     devtool,
     devServer: {
-        open: false
+        open: false,
+        proxy: {
+            '/api': {
+                target: 'http://localhost:3000/',
+                changeOrigin: true
+            }
+        }
     },
     entry: path.resolve(__dirname, 'src', 'index.tsx'),
     output: {

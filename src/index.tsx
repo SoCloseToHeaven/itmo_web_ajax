@@ -56,11 +56,13 @@ function App() {
 
     return (
         <div>
-            <div>
+            <div className='graph-container'>
                 <Graph points={points} r={r} sendPoint={sendPoint}/>
+            </div>
+            <div className='form-container'>
                 <Form x={x} y={y} r={r} setX={setX} setY={setY} setR={setR} sendPoint={sendPoint} clearPoints={clearPoints} />
             </div>
-            <div>
+            <div className='results-container'>
                 <Results points={points} />
             </div>
         </div>

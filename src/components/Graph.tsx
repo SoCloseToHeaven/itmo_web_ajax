@@ -20,7 +20,7 @@ interface GraphProps {
 function fillGraph(ctx: CanvasRenderingContext2D, r: number, points: ProcessedPoint[]) : void {
     ctx.save();
     ctx.font = "13px sans-serif";
-    ctx.fillStyle = "white";
+    ctx.fillStyle = 'white';
     ctx.fillRect(0, 0, width, height);
 
 
@@ -116,7 +116,7 @@ export const Graph : React.FC<GraphProps> = ({points, r, sendPoint} : GraphProps
     }, [points, r]);
 
     return (
-        <canvas 
+        <canvas className="map-img"
             width={width} 
             height={height}
             id="canvas"
@@ -156,7 +156,7 @@ export const Graph : React.FC<GraphProps> = ({points, r, sendPoint} : GraphProps
             }}
         >
             Canvas is not supported in your browser!
-            <img src={graphImg} width={width} height={height} />
+            <img className="map-img" src={graphImg} width={width} height={height} />
         </canvas>
     );
 } 

@@ -1,5 +1,6 @@
 # Лабораторная работа №1
 ## Вариант: 368459
+## Test [here](https://se.ifmo.ru/~s368459/lab1/)!
 
 ![Task graph](/static/areas-with-bounds.png)
 
