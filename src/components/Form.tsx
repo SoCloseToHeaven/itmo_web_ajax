@@ -32,7 +32,7 @@ export const Form : React.FC<FormProps> = ({x, y, r, setX, setY, setR, sendPoint
 
     }, [yText]);
 
-    // add styles
+    
     return (
         <form 
             action='/api/point-handle.php' 
@@ -44,7 +44,7 @@ export const Form : React.FC<FormProps> = ({x, y, r, setX, setY, setR, sendPoint
         >
             <div>
                 <label htmlFor='x'>Select X value</label>
-                <select value={x} onChange={(e) => setX(parseFloat(e.target.value))}>
+                <select className='x-y-width' value={x} onChange={(e) => setX(parseFloat(e.target.value))}>
                     {
                         Constants.X_SELECT_VALUES.map((value : number) => <option value={value}>{value}</option>)
                     }
@@ -53,6 +53,7 @@ export const Form : React.FC<FormProps> = ({x, y, r, setX, setY, setR, sendPoint
             <div>
                     <label htmlFor='y'>Type Y value</label>
                     <input 
+                        className='x-y-width'
                         type='text' 
                         name='y' 
                         placeholder='Y value'
@@ -60,7 +61,7 @@ export const Form : React.FC<FormProps> = ({x, y, r, setX, setY, setR, sendPoint
                         value={yText}
                         onChange={(e) => setYText(e.target.value)}
                     />
-                    <label htmlFor='y'>{yWarningText}</label>
+                    <label style={{color: 'red'}} htmlFor='y'>{yWarningText}</label>
             </div>
             <div>
                 <label htmlFor='r'>
@@ -70,6 +71,7 @@ export const Form : React.FC<FormProps> = ({x, y, r, setX, setY, setR, sendPoint
                     Constants.R_BUTTON_VALUES.map((value : number) => {
                         return (
                             <button
+                                className='r-button-group'
                                 name='r'
                                 value={value}
                                 type='button'
@@ -82,8 +84,8 @@ export const Form : React.FC<FormProps> = ({x, y, r, setX, setY, setR, sendPoint
                 }
             </div>
             <div>
-                    <button type='submit'>Send</button>
-                    <button type='button' onClick={(e) => clearPoints()}>Clear</button>
+                    <button className='send-clear-button-group' type='submit'>Send</button>
+                    <button className='send-clear-button-group' type='button' onClick={(e) => clearPoints()}>Clear</button>
             </div>
         </form>
     );
