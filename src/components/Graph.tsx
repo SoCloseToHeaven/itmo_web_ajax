@@ -20,7 +20,7 @@ interface GraphProps {
 function fillGraph(ctx: CanvasRenderingContext2D, r: number, points: ProcessedPoint[]) : void {
     ctx.save();
     ctx.font = "13px sans-serif";
-    ctx.fillStyle = "white";
+    ctx.fillStyle = 'white';
     ctx.fillRect(0, 0, width, height);
 
 

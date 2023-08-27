@@ -17,18 +17,28 @@ export const Form : React.FC<FormProps> = ({x, y, r, setX, setY, setR, sendPoint
     const [yWarningText, setYWarningText] = useState<String>('');
     const [yText, setYText] = useState<string>('');
 
-    // const sendButtonRef = useRef<HTMLButtonElement>(null);
+    const sendButtonRef = useRef<HTMLButtonElement>(null);
 
     useEffect(() => {
-        if (yText === '' || parseFloat(yText) < Constants.Y_LOWER_BOUND || parseFloat(yText) > Constants.Y_UPPER_BOUND) {
-            setYWarningText(
-                `Y value must be a float number between: ${Constants.Y_LOWER_BOUND} and ${Constants.Y_UPPER_BOUND} (inclusive)`
-            );
+        if (
+            Number.isNaN(parseFloat(yText)) || // TODO: add regular expression test
+            yText === '' || 
+            parseFloat(yText) < Constants.Y_LOWER_BOUND || 
+            parseFloat(yText) > Constants.Y_UPPER_BOUND) {
+
+                if (sendButtonRef.current)
+                    sendButtonRef.current.disabled = true;
+                setYWarningText(
+                    `Y value must be a float number between: ${Constants.Y_LOWER_BOUND} and ${Constants.Y_UPPER_BOUND} (inclusive)`
+                );
             
-            return;
+                return;
         }
+        if (sendButtonRef.current)
+            sendButtonRef.current.disabled = false;
         setYWarningText('');
         setY(parseFloat(yText));
+        
 
     }, [yText]);
 
@@ -84,7 +94,7 @@ export const Form : React.FC<FormProps> = ({x, y, r, setX, setY, setR, sendPoint
                 }
             </div>
             <div>
-                    <button className='send-clear-button-group' type='submit'>Send</button>
+                    <button className='send-clear-button-group' type='submit' ref={sendButtonRef}>Send</button>
                     <button className='send-clear-button-group' type='button' onClick={(e) => clearPoints()}>Clear</button>
             </div>
         </form>
