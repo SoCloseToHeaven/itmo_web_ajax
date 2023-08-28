@@ -19,6 +19,7 @@ export const Form : React.FC<FormProps> = ({x, y, r, setX, setY, setR, sendPoint
 
     const sendButtonRef = useRef<HTMLButtonElement>(null);
 
+
     useEffect(() => {
         if (
             Number.isNaN(parseFloat(yText)) || // TODO: add regular expression test
@@ -81,11 +82,11 @@ export const Form : React.FC<FormProps> = ({x, y, r, setX, setY, setR, sendPoint
                     Constants.R_BUTTON_VALUES.map((value : number) => {
                         return (
                             <button
-                                className='r-button-group'
                                 name='r'
                                 value={value}
                                 type='button'
                                 onClick={(e) => setR(value)}
+                                className={value === r ? 'r-button-group r-button-current' : 'r-button-group'}
                             >
                                 {value}
                             </button>

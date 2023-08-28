@@ -99,6 +99,12 @@ body {
     width: 15%;
 }
 
+.r-button-current {
+        transform: scale(1.1);
+        background-color: #032830 !important;
+        box-shadow: 1px 5px 11px 7px rgba(240, 235, 216, .2);
+}
+
 .send-clear-button-group {
     width: 30%;
 }
