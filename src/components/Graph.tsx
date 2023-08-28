@@ -102,13 +102,31 @@ export const Graph : React.FC<GraphProps> = ({points, r, sendPoint} : GraphProps
 
     const canvasRef = useRef<HTMLCanvasElement>(null);
     const ctx = canvasRef.current?.getContext("2d");
-    const rect = canvasRef.current?.getBoundingClientRect();
 
     const fillGraphCtx = () => {
         if (ctx) {
             fillGraph(ctx, r, points);
             return ctx;
         }
+    };
+
+    const drawPointer = (event: React.PointerEvent<HTMLCanvasElement>) => {
+        const rect = canvasRef.current?.getBoundingClientRect();
+        if (!rect || !ctx)
+            return;
+        fillGraphCtx();
+
+        const mouseX = event.clientX - rect.left;
+        const mouseY = event.clientY - rect.top;
+
+        ctx.save();
+
+        ctx.beginPath();
+        ctx.fillStyle = POINTER_COLOR;
+        ctx.arc(mouseX, mouseY, POINT_RADIUS, 0, 2 * Math.PI);
+        ctx.fill();
+
+        ctx.restore();
     };
 
     useEffect(() => {
@@ -121,25 +139,10 @@ export const Graph : React.FC<GraphProps> = ({points, r, sendPoint} : GraphProps
             height={height}
             id="canvas"
             ref={canvasRef}
-            onMouseLeave={(e) => fillGraphCtx()}
-            onMouseMove={(event) => {
-                if (!rect || !ctx)
-                    return;
-                fillGraphCtx();
-                
-                const mouseX = event.clientX - rect.left;
-                const mouseY = event.clientY - rect.top;
-
-                ctx.save();
-
-                ctx.beginPath();
-                ctx.fillStyle = POINTER_COLOR;
-                ctx.arc(mouseX, mouseY, POINT_RADIUS, 0, 2 * Math.PI);
-                ctx.fill();
-
-                ctx.restore();
-            }}
-            onClick={(event) => {
+            onPointerLeave={(e) => fillGraphCtx()}
+            onPointerMove={(event) => drawPointer(event)}
+            onPointerDown={(event) => {
+                const rect = canvasRef.current?.getBoundingClientRect();
                 if (!rect) {
                     return;
                 }

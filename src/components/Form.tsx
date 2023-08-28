@@ -71,7 +71,7 @@ export const Form : React.FC<FormProps> = ({x, y, r, setX, setY, setR, sendPoint
                         value={yText}
                         onChange={(e) => setYText(e.target.value)}
                     />
-                    <label style={{color: 'red'}} htmlFor='y'>{yWarningText}</label>
+                    <label style={{color: 'rgb(220,53,69)'}} htmlFor='y'>{yWarningText}</label>
             </div>
             <div>
                 <label htmlFor='r'>
@@ -94,7 +94,7 @@ export const Form : React.FC<FormProps> = ({x, y, r, setX, setY, setR, sendPoint
                 }
             </div>
             <div>
-                    <button className='send-clear-button-group' type='submit' ref={sendButtonRef}>Send</button>
+                    <button className='send-clear-button-group' id='send-button' type='submit' ref={sendButtonRef}>Send</button>
                     <button className='send-clear-button-group' type='button' onClick={(e) => clearPoints()}>Clear</button>
             </div>
         </form>
