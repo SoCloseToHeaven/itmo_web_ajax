@@ -10,7 +10,7 @@
         $r = floatval($_GET['r']);
 
         $leftUpperSector = $x <= 0 && $y >= 0 && $x >= -($r / 2) && $y <= $r;
-        $leftLowerSector = $x <= 0 && $y <= 0 && ($y >= -2 * $r * $x - $r);
+        $leftLowerSector = $x <= 0 && $y <= 0 && ($y >= -2 * $x - $r);
         $rightLowerSector = $x >= 0 && $y <= 0 && ($x*$x + $y*$y < ($r / 2) * ($r / 2));
         
         $hit = $leftLowerSector || $leftUpperSector || $rightLowerSector;
