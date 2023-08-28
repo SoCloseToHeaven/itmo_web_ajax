@@ -63,7 +63,7 @@ body {
     
 }
 
-.form-container button, input, select {
+.form-container button, input[type="text"], select {
     color: #F0EBD8;
     text-align: center;
     background-color: #3E5C76;
@@ -76,13 +76,17 @@ body {
 
     &:active {
         box-shadow: 1px 5px 11px 7px rgba(240, 235, 216, .2);
+        background-color: #032830;
     }
 
     &::placeholder {
         color: rgb(154, 156, 161);
     }
+}
 
+.form-container input[type="text"], select {
     &:focus {
+        background-color: #032830;
         box-shadow: 1px 5px 11px 7px rgba(240, 235, 216, .2);
     }
 }
@@ -100,7 +104,8 @@ body {
 }
 
 #send-button {
-    background-color: #40763E;
+    background-color: #051b11;
+    border-color: #0f5132;
     &:disabled {
         background-color: #2c0b0e;
         border-color: #842029;
