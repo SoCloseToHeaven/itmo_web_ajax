@@ -30,7 +30,8 @@ export const Form : React.FC<FormProps> = ({x, y, r, setX, setY, setR, sendPoint
                 if (sendButtonRef.current)
                     sendButtonRef.current.disabled = true;
                 setYWarningText(
-                    `Y value must be a float number between: ${Constants.Y_LOWER_BOUND} and ${Constants.Y_UPPER_BOUND} (inclusive)`
+                    `Y value must be a float number between: ${Constants.Y_LOWER_BOUND} 
+                    and ${Constants.Y_UPPER_BOUND} (inclusive, ${Constants.ROUNDING_ACCURACY} decimals places of number)`
                 );
             
                 return;

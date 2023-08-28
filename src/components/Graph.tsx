@@ -1,5 +1,6 @@
 import React, { useEffect, useRef } from "react";
 import graphImg from '../assets/areas.png';
+import { ROUNDING_ACCURACY } from "../constants";
 
 const width : number = 300;
 const height : number = 300;
@@ -150,8 +151,8 @@ export const Graph : React.FC<GraphProps> = ({points, r, sendPoint} : GraphProps
                 const mouseY = event.clientY - rect.top;
 
                 const pointAttempt : Point = {
-                    x: (mouseX - width / 2) / (width / 3) * r,
-                    y: -(mouseY - height / 2) / (height / 3) * r,
+                    x: Math.round((mouseX - width / 2) / (width / 3) * r * 10**ROUNDING_ACCURACY) / 10**ROUNDING_ACCURACY,
+                    y: Math.round(-(mouseY - height / 2) / (height / 3) * r * 10**ROUNDING_ACCURACY) / 10**ROUNDING_ACCURACY,
                     r: r
                 }
 
