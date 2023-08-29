@@ -22,7 +22,7 @@ export const Form : React.FC<FormProps> = ({x, y, r, setX, setY, setR, sendPoint
 
     useEffect(() => {
         if (
-            !Constants.FLOAT_REGEX.test(yText) ||
+            !Constants.FLOAT_FIVE_DECIMALS_REGEX.test(yText) ||
             yText === '' || 
             parseFloat(yText) < Constants.Y_LOWER_BOUND || 
             parseFloat(yText) > Constants.Y_UPPER_BOUND) {
