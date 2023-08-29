@@ -1,5 +1,6 @@
 import React, { useEffect, useRef } from "react";
 import graphImg from '../assets/areas.png';
+import { ROUNDING_ACCURACY } from "../constants";
 
 const width : number = 300;
 const height : number = 300;
@@ -102,13 +103,31 @@ export const Graph : React.FC<GraphProps> = ({points, r, sendPoint} : GraphProps
 
     const canvasRef = useRef<HTMLCanvasElement>(null);
     const ctx = canvasRef.current?.getContext("2d");
-    const rect = canvasRef.current?.getBoundingClientRect();
 
     const fillGraphCtx = () => {
         if (ctx) {
             fillGraph(ctx, r, points);
             return ctx;
         }
+    };
+
+    const drawPointer = (event: React.PointerEvent<HTMLCanvasElement>) => {
+        const rect = canvasRef.current?.getBoundingClientRect();
+        if (!rect || !ctx)
+            return;
+        fillGraphCtx();
+
+        const mouseX = event.clientX - rect.left;
+        const mouseY = event.clientY - rect.top;
+
+        ctx.save();
+
+        ctx.beginPath();
+        ctx.fillStyle = POINTER_COLOR;
+        ctx.arc(mouseX, mouseY, POINT_RADIUS, 0, 2 * Math.PI);
+        ctx.fill();
+
+        ctx.restore();
     };
 
     useEffect(() => {
@@ -121,25 +140,10 @@ export const Graph : React.FC<GraphProps> = ({points, r, sendPoint} : GraphProps
             height={height}
             id="canvas"
             ref={canvasRef}
-            onMouseLeave={(e) => fillGraphCtx()}
-            onMouseMove={(event) => {
-                if (!rect || !ctx)
-                    return;
-                fillGraphCtx();
-                
-                const mouseX = event.clientX - rect.left;
-                const mouseY = event.clientY - rect.top;
-
-                ctx.save();
-
-                ctx.beginPath();
-                ctx.fillStyle = POINTER_COLOR;
-                ctx.arc(mouseX, mouseY, POINT_RADIUS, 0, 2 * Math.PI);
-                ctx.fill();
-
-                ctx.restore();
-            }}
-            onClick={(event) => {
+            onPointerLeave={(e) => fillGraphCtx()}
+            onPointerMove={(event) => drawPointer(event)}
+            onPointerDown={(event) => {
+                const rect = canvasRef.current?.getBoundingClientRect();
                 if (!rect) {
                     return;
                 }
@@ -147,8 +151,8 @@ export const Graph : React.FC<GraphProps> = ({points, r, sendPoint} : GraphProps
                 const mouseY = event.clientY - rect.top;
 
                 const pointAttempt : Point = {
-                    x: (mouseX - width / 2) / (width / 3) * r,
-                    y: -(mouseY - height / 2) / (height / 3) * r,
+                    x: Math.round((mouseX - width / 2) / (width / 3) * r * 10**ROUNDING_ACCURACY) / 10**ROUNDING_ACCURACY,
+                    y: Math.round(-(mouseY - height / 2) / (height / 3) * r * 10**ROUNDING_ACCURACY) / 10**ROUNDING_ACCURACY,
                     r: r
                 }
 

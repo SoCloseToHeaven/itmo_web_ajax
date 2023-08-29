@@ -19,9 +19,10 @@ export const Form : React.FC<FormProps> = ({x, y, r, setX, setY, setR, sendPoint
 
     const sendButtonRef = useRef<HTMLButtonElement>(null);
 
+
     useEffect(() => {
         if (
-            Number.isNaN(parseFloat(yText)) || // TODO: add regular expression test
+            !Constants.FLOAT_FIVE_DECIMALS_REGEX.test(yText) ||
             yText === '' || 
             parseFloat(yText) < Constants.Y_LOWER_BOUND || 
             parseFloat(yText) > Constants.Y_UPPER_BOUND) {
@@ -29,7 +30,8 @@ export const Form : React.FC<FormProps> = ({x, y, r, setX, setY, setR, sendPoint
                 if (sendButtonRef.current)
                     sendButtonRef.current.disabled = true;
                 setYWarningText(
-                    `Y value must be a float number between: ${Constants.Y_LOWER_BOUND} and ${Constants.Y_UPPER_BOUND} (inclusive)`
+                    `Y value must be a float number between: ${Constants.Y_LOWER_BOUND} 
+                    and ${Constants.Y_UPPER_BOUND} (inclusive, ${Constants.ROUNDING_ACCURACY} decimals places of number)`
                 );
             
                 return;
@@ -71,7 +73,7 @@ export const Form : React.FC<FormProps> = ({x, y, r, setX, setY, setR, sendPoint
                         value={yText}
                         onChange={(e) => setYText(e.target.value)}
                     />
-                    <label style={{color: 'red'}} htmlFor='y'>{yWarningText}</label>
+                    <label id='y-warning-label' htmlFor='y'>{yWarningText}</label>
             </div>
             <div>
                 <label htmlFor='r'>
@@ -81,11 +83,11 @@ export const Form : React.FC<FormProps> = ({x, y, r, setX, setY, setR, sendPoint
                     Constants.R_BUTTON_VALUES.map((value : number) => {
                         return (
                             <button
-                                className='r-button-group'
                                 name='r'
                                 value={value}
                                 type='button'
                                 onClick={(e) => setR(value)}
+                                className={value === r ? 'r-button-group r-button-current' : 'r-button-group'}
                             >
                                 {value}
                             </button>
@@ -94,7 +96,7 @@ export const Form : React.FC<FormProps> = ({x, y, r, setX, setY, setR, sendPoint
                 }
             </div>
             <div>
-                    <button className='send-clear-button-group' type='submit' ref={sendButtonRef}>Send</button>
+                    <button className='send-clear-button-group' id='send-button' type='submit' ref={sendButtonRef}>Send</button>
                     <button className='send-clear-button-group' type='button' onClick={(e) => clearPoints()}>Clear</button>
             </div>
         </form>

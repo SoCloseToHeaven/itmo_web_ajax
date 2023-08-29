@@ -5,4 +5,8 @@ export const Y_LOWER_BOUND : number = -5;
 
 export const R_BUTTON_VALUES : number[] = [1, 2, 3, 4, 5];
 
-export const LOCAL_STORAGE_KEY = 'app-points';
+export const LOCAL_STORAGE_KEY = 'app-points'; 
+
+export const FLOAT_FIVE_DECIMALS_REGEX = /^[+-]?\d+(\.\d{1,5})?$/;
+
+export const ROUNDING_ACCURACY = 5;
