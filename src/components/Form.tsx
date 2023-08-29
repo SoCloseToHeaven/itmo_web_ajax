@@ -22,7 +22,7 @@ export const Form : React.FC<FormProps> = ({x, y, r, setX, setY, setR, sendPoint
 
     useEffect(() => {
         if (
-            Number.isNaN(parseFloat(yText)) || // TODO: add regular expression test
+            !Constants.FLOAT_REGEX.test(yText) ||
             yText === '' || 
             parseFloat(yText) < Constants.Y_LOWER_BOUND || 
             parseFloat(yText) > Constants.Y_UPPER_BOUND) {
@@ -73,7 +73,7 @@ export const Form : React.FC<FormProps> = ({x, y, r, setX, setY, setR, sendPoint
                         value={yText}
                         onChange={(e) => setYText(e.target.value)}
                     />
-                    <label style={{color: 'rgb(220,53,69)'}} htmlFor='y'>{yWarningText}</label>
+                    <label id='y-warning-label' htmlFor='y'>{yWarningText}</label>
             </div>
             <div>
                 <label htmlFor='r'>

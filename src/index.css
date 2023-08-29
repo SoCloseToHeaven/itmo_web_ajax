@@ -140,4 +140,10 @@ body {
 #canvas {
     margin-top: 2%;
     margin-bottom: 2%;
+    box-shadow: 1px 5px 11px 7px rgba(240, 235, 216, .2);
+}
+
+#y-warning-label {
+    color: rgb(220,53,69);
+    font-size: medium;
 }
