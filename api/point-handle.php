@@ -6,6 +6,7 @@
         http_response_code(422); 
     } else {
         if (!(is_numeric($_GET['x']) && is_numeric($_GET['y']) && is_numeric($_GET['r']))) {
+            echo 'Invalid parameters type';
             http_response_code(422);
             return;
         }
