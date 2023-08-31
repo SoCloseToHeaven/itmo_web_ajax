@@ -59,11 +59,10 @@ body {
 .form-container label {
     display: block;
     color: #F0EBD8;
-    /* background-color: #0D1321; */
     
 }
 
-.form-container button, input[type="text"], select {
+.form-container button, input[type="text"], select, input[type="checkbox"] {
     color: #F0EBD8;
     text-align: center;
     background-color: #3E5C76;
@@ -95,11 +94,18 @@ body {
     width: 48%;
 }
 
-.r-button-group {
-    width: 15%;
+#r-group {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
 }
 
-.r-button-current {
+#r-group label {
+    position: relative;
+}
+
+
+
+.r-current {
         transform: scale(1.1);
         background-color: #032830 !important;
         box-shadow: 1px 5px 11px 7px rgba(240, 235, 216, .2);

@@ -14,8 +14,6 @@ interface FormProps {
 }
 
 export const Form : React.FC<FormProps> = ({x, y, r, setX, setY, setR, sendPoint, clearPoints} : FormProps) => {
-    // const [yWarningText, setYWarningText] = useState<String>('');
-    // const [yText, setYText] = useState<string>('');
 
     const [xText, setXText] = useState<string>('');
     const [xWarningText, setXWarningText] = useState<string>('');
@@ -65,6 +63,7 @@ export const Form : React.FC<FormProps> = ({x, y, r, setX, setY, setR, sendPoint
                     required
                     type='text'
                     onChange={e => setXText(e.target.value)}
+                    placeholder='X value'
                 />
                 <label 
                     htmlFor='x'
@@ -90,26 +89,30 @@ export const Form : React.FC<FormProps> = ({x, y, r, setX, setY, setR, sendPoint
                 </select>
             </div>
             <div>
-                <label>Choose R value</label>
+                <label htmlFor='r-group'>Choose R value</label>
+                <div id='r-group'>
                 {
                     Constants.R_CHECKBOX_VALUES.map((value) => {
-                        return <label 
-                            htmlFor={`r-${value}`}
-                            style={{display: 'inline-block'}}
+                        return <div>
+                            <label
+                                className='r-group-elem'
+                                htmlFor={`r-${value}`}
                             >
-                            {value}
-
-                            <input 
-                            id={`r-${value}`}
-                            type='checkbox'
-                            value={value}
-                            name='r'
-                            checked={value == r ? true : false}
-                            onClick={e => setR(value)}
+                                {value}
+                            </label>
+                            <input
+                                id={`r-${value}`}
+                                className={value === r ? 'r-current' : ''}
+                                type='checkbox'
+                                value={value}
+                                name='r'
+                                checked={value === r}
+                                onClick={e => setR(value)}
                             />
-                        </label>
+                        </div>
                     })
                 }
+                </div>
             </div>
             <div>
                     <button className='send-clear-button-group' id='send-button' type='submit' ref={sendButtonRef}>Send</button>
