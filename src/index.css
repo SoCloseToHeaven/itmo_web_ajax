@@ -6,12 +6,12 @@ body {
 .personal-info {
     text-align: center;
     font-size: larger;
-    font-family: monospace;
+    font-family: monospace; /* fantasy */
 }
 
 .laboratory-info {
     text-align: center;
-    font-family: monospace;
+    font-family: monospace; /* fantasy */
 }
 
 .laboratory-info h1 {
@@ -143,7 +143,7 @@ body {
     box-shadow: 1px 5px 11px 7px rgba(240, 235, 216, .2);
 }
 
-#y-warning-label {
+#warning-label {
     color: rgb(220,53,69);
     font-size: medium;
 }
