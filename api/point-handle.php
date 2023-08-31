@@ -15,11 +15,11 @@
         $r = floatval($_GET['r']);
 
 
-        $leftUpperSector = $x <= 0 && $y >= 0 && $x >= -($r / 2) && $y <= $r;
-        $leftLowerSector = $x <= 0 && $y <= 0 && ($y >= -2 * $x - $r);
-        $rightLowerSector = $x >= 0 && $y <= 0 && ($x*$x + $y*$y < ($r / 2) * ($r / 2));
+        $leftUpperSector = $x <= 0 && $y >= 0 && (($x * $x + $y * $y) <= ($r /2 ) * ($r * 2));
+        $rightUpperSector = $x >= 0 && $y >= 0 && $y <= $r && $x <= $r / 2;
+        $rightLowerSector = $x >= 0 && $y <= 0 && $y >= ($x - $r);
         
-        $hit = $leftLowerSector || $leftUpperSector || $rightLowerSector;
+        $hit = $leftUpperSector || $rightLowerSector  || $rightUpperSector;
 
         $executionTime = hrtime(true) - $startTime;
 
