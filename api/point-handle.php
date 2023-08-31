@@ -5,9 +5,15 @@
         echo 'Not enough parameters';
         http_response_code(422); 
     } else {
+        if (!(is_numeric($_GET['x']) && is_numeric($_GET['y']) && is_numeric($_GET['r']))) {
+            http_response_code(422);
+            return;
+        }
+
         $x = floatval($_GET['x']);
         $y = floatval($_GET['y']);
         $r = floatval($_GET['r']);
+
 
         $leftUpperSector = $x <= 0 && $y >= 0 && $x >= -($r / 2) && $y <= $r;
         $leftLowerSector = $x <= 0 && $y <= 0 && ($y >= -2 * $x - $r);
