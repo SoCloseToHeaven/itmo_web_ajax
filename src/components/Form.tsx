@@ -14,35 +14,36 @@ interface FormProps {
 }
 
 export const Form : React.FC<FormProps> = ({x, y, r, setX, setY, setR, sendPoint, clearPoints} : FormProps) => {
-    const [yWarningText, setYWarningText] = useState<String>('');
-    const [yText, setYText] = useState<string>('');
+
+    const [xText, setXText] = useState<string>('');
+    const [xWarningText, setXWarningText] = useState<string>('');
 
     const sendButtonRef = useRef<HTMLButtonElement>(null);
 
 
     useEffect(() => {
         if (
-            !Constants.FLOAT_FIVE_DECIMALS_REGEX.test(yText) ||
-            yText === '' || 
-            parseFloat(yText) < Constants.Y_LOWER_BOUND || 
-            parseFloat(yText) > Constants.Y_UPPER_BOUND) {
+            !Constants.FLOAT_FIVE_DECIMALS_REGEX.test(xText) ||
+            xText === '' || 
+            parseFloat(xText) < Constants.X_LOWER_BOUND || 
+            parseFloat(xText) > Constants.X_UPPER_BOUND) {
 
                 if (sendButtonRef.current)
                     sendButtonRef.current.disabled = true;
-                setYWarningText(
-                    `Y value must be a float number between: ${Constants.Y_LOWER_BOUND} 
-                    and ${Constants.Y_UPPER_BOUND} (inclusive, ${Constants.ROUNDING_ACCURACY} decimals places of number)`
+                setXWarningText(
+                    `X value must be a float number between: ${Constants.X_LOWER_BOUND} 
+                    and ${Constants.X_UPPER_BOUND} (inclusive, ${Constants.ROUNDING_ACCURACY} decimals places of number)`
                 );
             
                 return;
         }
         if (sendButtonRef.current)
             sendButtonRef.current.disabled = false;
-        setYWarningText('');
-        setY(parseFloat(yText));
+        setXWarningText('');
+        setX(parseFloat(xText));
         
 
-    }, [yText]);
+    }, [xText]);
 
     
     return (
@@ -55,45 +56,63 @@ export const Form : React.FC<FormProps> = ({x, y, r, setX, setY, setR, sendPoint
             }
         >
             <div>
-                <label htmlFor='x'>Select X value</label>
-                <select className='x-y-width' value={x} onChange={(e) => setX(parseFloat(e.target.value))}>
+                <label htmlFor="x">Type X value</label>
+                <input 
+                    id='x'
+                    className='x-y-width'
+                    required
+                    type='text'
+                    onChange={e => setXText(e.target.value)}
+                    placeholder='X value'
+                />
+                <label 
+                    htmlFor='x'
+                    id='warning-label'
+                >
+                {
+                    xWarningText
+                }
+                </label>
+            </div>
+            <div>
+                <label htmlFor="y">Select Y value</label>
+                <select
+                    id='y'
+                    className='x-y-width'
+                    name='y'
+                    value={y}
+                    onChange={(e => setY(parseFloat(e.target.value)))}
+                >
                     {
-                        Constants.X_SELECT_VALUES.map((value : number) => <option value={value}>{value}</option>)
+                        Constants.Y_SELECT_VALUES.map(value => <option value={value}>{value}</option>)
                     }
                 </select>
             </div>
             <div>
-                    <label htmlFor='y'>Type Y value</label>
-                    <input 
-                        className='x-y-width'
-                        type='text' 
-                        name='y' 
-                        placeholder='Y value'
-                        required
-                        value={yText}
-                        onChange={(e) => setYText(e.target.value)}
-                    />
-                    <label id='y-warning-label' htmlFor='y'>{yWarningText}</label>
-            </div>
-            <div>
-                <label htmlFor='r'>
-                    Choose R value
-                </label>
+                <label htmlFor='r-group'>Choose R value</label>
+                <div id='r-group'>
                 {
-                    Constants.R_BUTTON_VALUES.map((value : number) => {
-                        return (
-                            <button
-                                name='r'
-                                value={value}
-                                type='button'
-                                onClick={(e) => setR(value)}
-                                className={value === r ? 'r-button-group r-button-current' : 'r-button-group'}
+                    Constants.R_CHECKBOX_VALUES.map((value) => {
+                        return <div>
+                            <label
+                                className='r-group-elem'
+                                htmlFor={`r-${value}`}
                             >
                                 {value}
-                            </button>
-                        );
+                            </label>
+                            <input
+                                id={`r-${value}`}
+                                className={value === r ? 'r-current' : ''}
+                                type='checkbox'
+                                value={value}
+                                name='r'
+                                checked={value === r}
+                                onClick={e => setR(value)}
+                            />
+                        </div>
                     })
                 }
+                </div>
             </div>
             <div>
                     <button className='send-clear-button-group' id='send-button' type='submit' ref={sendButtonRef}>Send</button>
