@@ -102,7 +102,6 @@ export const Form : React.FC<FormProps> = ({x, y, r, setX, setY, setR, sendPoint
                             </label>
                             <input
                                 id={`r-${value}`}
-                                className={value === r ? 'r-current' : ''}
                                 type='checkbox'
                                 value={value}
                                 name='r'
